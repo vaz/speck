@@ -1,9 +1,7 @@
-import distribute_setup
-distribute_setup.use_setuptools()
-
 from setuptools import setup, find_packages
 
-version = '0.1'
+
+version = '0.2.0'
 
 setup(
     name='speck',

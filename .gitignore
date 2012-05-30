@@ -3,4 +3,5 @@
 /env/
 distribute-*.egg
 distribute-*.t*gz
-
+/dist
+/build
