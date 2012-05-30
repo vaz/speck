@@ -57,7 +57,7 @@ class MatcherRegistry(object):
                     pass
                 else:
                     fmt = matcher.failure_message_fmt
-                    raise ExpectationNotMet, 'Negated: ' + fmt.format(a, b)
+                    raise ExpectationNotMet, ('NOT ' + fmt).format(a, b, called_as=matcher.called_as)
             _matcher.called_as = not_name
             return _matcher
 
