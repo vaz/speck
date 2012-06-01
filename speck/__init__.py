@@ -1,4 +1,5 @@
 from .expectation import _
-from .matcher import matchers
+#from .matcher import matcher
 
-__all__ = ['_', 'matchers']
+
+__all__ = ['_', 'matcher']
