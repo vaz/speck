@@ -41,10 +41,10 @@ class MatcherRegistry(object):
         return self.matchers.get(name).clone(name)
 
     def __getitem__(self, name):
-        try:
+        # don't try/except because we want a cleaner traceback
+        if name in self.matchers:
             return self.matchers[name].clone(name)
-        except KeyError:
-            raise NoMatcherError(name)
+        raise NoMatcherError(name)
 
 
 matchers = MatcherRegistry()
