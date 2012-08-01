@@ -9,24 +9,30 @@ class MatcherRegistry(object):
         self.matchers = dict()
 
     def add(self, matcher, names):
-        names = words(names)
-        for name in names:
+        for name in words(names):
             self.matchers[name] = matcher
 
-    def remove(self, names, include_aliases=False):
-        names = words(names)
-        for name in names:
+    def remove(self, *names, **options):
+        include_aliases = options.pop('include_aliases', False)
+
+        for name in words(names):
             self.remove_one(name, include_aliases)
 
     def remove_one(self, name, include_aliases=False):
         f = self.matchers.pop(name)
+
         if include_aliases:
             for n, m in self.matchers:
                 if m == f:
                     self.remove_one(n)
 
-    def alias(self, original, aliases):
-        self.matchers.alias(original, aliases)
+    def alias(self, name, aliases):
+        try:
+            f = self.matchers[name]
+        except KeyError:
+            raise NoMatcherError(name)
+
+        self.add(f, aliases)
 
     def __len__(self):
         return len(self.matchers)
